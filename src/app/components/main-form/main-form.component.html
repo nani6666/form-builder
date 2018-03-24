@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <h3>Form Builder</h3>
+<div class="row">
+<div class="col-md-2">
+    <mat-card><mat-card-title>Elements</mat-card-title>
+      <mat-card-content>
+        <ul>
+          <li>
+            <a class="btn btn-sm btn-primary text-light" (click)="elementClick('input')"><i class="fas fa-font"></i></a>
+          </li>
+          <li>
+              <a class="btn btn-sm btn-primary text-light" (click)="elementClick('textarea')">Textarea</a>
+            </li>
+        </ul>
+      </mat-card-content>
+      </mat-card>
+</div>
+<div class="col-md-5">
+    <mat-card><mat-card-title>Form Builder</mat-card-title>
+      <mat-card-content>
+          <form class="example-form" autocomplete="off">
+                <div>
+                <div class="form-group" *ngIf="inputbtn">
+                    <div class="col-md-6">
+                        <mat-form-field class="example-full-width">
+                            <input type="text" matInput placeholder="Label of Input" (input)="onlabel($event.target.value)" >
+                          </mat-form-field>
+                    </div>
+
+                  </div>
+                  <!-- <div class="form-group">
+                      <mat-form-field class="example-full-width">
+                          <textarea matInput placeholder="Leave a comment"></textarea>
+                        </mat-form-field>
+                  </div> -->
+            </div>
+
+
+
+            </form>
+
+      </mat-card-content>
+
+      </mat-card>
+  </div>
+  <div class="col-md-5">
+      <mat-card><mat-card-title>Preview</mat-card-title>
+        <mat-card-content>
+            <form class="example-form" autocomplete="off">
+                <div>
+                <div class="form-group" *ngIf="inputbtn">
+                    <div class="col-md-6">
+                        <mat-form-field class="example-full-width">
+                            <input type="text" matInput placeholder={{fieldLabel}} >
+                          </mat-form-field>
+                    </div>
+
+                  </div>
+                  <!-- <div class="form-group">
+                      <mat-form-field class="example-full-width">
+                          <textarea matInput placeholder="Leave a comment"></textarea>
+                        </mat-form-field>
+                  </div> -->
+            </div>
+
+
+
+            </form>
+
+        </mat-card-content>
+
+        </mat-card>
+    </div>
+</div>
+</div>
