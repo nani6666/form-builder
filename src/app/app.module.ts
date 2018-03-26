@@ -1,7 +1,12 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { routing } from './app.routes';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ApiCallsService } from './services/api-calls.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -80,9 +85,13 @@ import { MainFormComponent } from './components/main-form/main-form.component';
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ApiCallsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

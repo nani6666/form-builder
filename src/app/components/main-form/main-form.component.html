@@ -6,65 +6,184 @@
       <mat-card-content>
         <ul>
           <li>
-            <a class="btn btn-sm btn-primary text-light" (click)="elementClick('input')"><i class="fas fa-font"></i></a>
+            <a class="btn bg-warning text-dark" matTooltip="Textbox" (click)="elementClick('input')"><i class="material-icons">text_fields</i></a>
           </li>
-          <li>
-              <a class="btn btn-sm btn-primary text-light" (click)="elementClick('textarea')">Textarea</a>
-            </li>
+          <!-- <li>
+              <a class="btn bg-primary text-dark" matTooltip="Textarea" (click)="elementClick('textarea')"><i class="material-icons">keyboard</i></a>
+            </li> -->
         </ul>
       </mat-card-content>
       </mat-card>
 </div>
-<div class="col-md-5">
+<div class="col-md-4">
     <mat-card><mat-card-title>Form Builder</mat-card-title>
       <mat-card-content>
-          <form class="example-form" autocomplete="off">
-                <div>
-                <div class="form-group" *ngIf="inputbtn">
+          <form class="example-form" autocomplete="off" [formGroup]="builderForm">
+                <div *ngIf="inputbtn">
+                  <a style="cursor:pointer;float:right;" class="btn bg-danger text-light"><i style="cursor:pointer;" class="fa fa-trash"></i></a>
+                <div class="form-group" >
                     <div class="col-md-6">
                         <mat-form-field class="example-full-width">
-                            <input type="text" matInput placeholder="Label of Input" (input)="onlabel($event.target.value)" >
+                            <input type="text" matInput placeholder="Label of Input" (input)="onlabel($event.target.value,'label')" >
                           </mat-form-field>
                     </div>
 
                   </div>
-                  <!-- <div class="form-group">
-                      <mat-form-field class="example-full-width">
-                          <textarea matInput placeholder="Leave a comment"></textarea>
-                        </mat-form-field>
-                  </div> -->
-            </div>
 
+                  <div class="form-group" *ngIf="previewInpField">
+                      <label class="control-label">Type of Input</label>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <mat-radio-group [(ngModel)]="inputType" [ngModelOptions]="{standalone: true}" (change)="radiovalues('typeInput')">
+                                <div class="form-group">
+                                  <mat-radio-button value="text">Text</mat-radio-button>
 
+                                </div>
+                                <div class="form-group"> <mat-radio-button value="number">Numeric</mat-radio-button></div>
+                                <div class="form-group">
+                                  <mat-radio-button value="Currency">Currency</mat-radio-button>
+                                </div>
+                                </mat-radio-group>
+                          </div>
+                          <div class="col-md-6">
+                              <mat-checkbox class="checkbox" [(ngModel)]="multiLineField" [disabled]="enabledmulticheck" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('multilinefield')">Enable Multi Line Field</mat-checkbox>
+                          </div>
+                      </div>
 
+                  </div>
+
+                  <div  *ngIf="divFields">
+                      <div class="form-group" >
+                          <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+                                  <input type="number" matInput placeholder="Max No Of Characters" (input)="onlabel($event.target.value,'chars')" >
+                                </mat-form-field>
+                          </div>
+                      </div>
+                      <div class="form-group" >
+                          <label class="control-label">Enable Gender Data Caputre ?</label>
+                          <div class="col-md-6">
+                              <mat-radio-group [(ngModel)]="genderCapture" [ngModelOptions]="{standalone: true}" (change)="radiovalues('genderCapt')">
+                                  <mat-radio-button value="Yes">Yes</mat-radio-button>
+                                  <mat-radio-button value="No">No</mat-radio-button>
+                                </mat-radio-group>
+                          </div>
+                      </div>
+                        <div class="form-group" *ngIf="showGenderChecks">
+                            <label class="control-label">Gender</label>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                  <mat-checkbox [(ngModel)]="genderMale" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('Male')">Male</mat-checkbox>
+                              </div>
+                              <div class="form-group">
+                                <mat-checkbox [(ngModel)]="genderFemale" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('female')">Female</mat-checkbox>
+                              </div>
+                              <div class="form-group">
+                                   <mat-checkbox [(ngModel)]="genderOthers" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('others')">Others</mat-checkbox>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                              <label class="control-label">Add Child Data</label>
+                              <div class="col-md-6">
+                                  <mat-radio-group [(ngModel)]="childData" [ngModelOptions]="{standalone: true}" (change)="radiovalues('child')">
+                                      <mat-radio-button value="Yes">Yes</mat-radio-button>
+                                      <mat-radio-button value="No">No</mat-radio-button>
+                                    </mat-radio-group>
+                              </div>
+                        </div>
+                        <div class="form-group" >
+                          <label class="control-label">Include Total</label>
+                          <div class="col-md-6">
+                              <mat-radio-group [(ngModel)]="totalField" [ngModelOptions]="{standalone: true}" (change)="radiovalues('total')">
+                                  <mat-radio-button value="Yes">Yes</mat-radio-button>
+                                  <mat-radio-button value="No">No</mat-radio-button>
+                                </mat-radio-group>
+                          </div>
+                        </div>
+                    </div>
+
+               </div>
             </form>
-
       </mat-card-content>
-
       </mat-card>
   </div>
-  <div class="col-md-5">
+  <div class="col-md-6">
       <mat-card><mat-card-title>Preview</mat-card-title>
         <mat-card-content>
-            <form class="example-form" autocomplete="off">
-                <div>
-                <div class="form-group" *ngIf="inputbtn">
-                    <div class="col-md-6">
-                        <mat-form-field class="example-full-width">
-                            <input type="text" matInput placeholder={{fieldLabel}} >
-                          </mat-form-field>
-                    </div>
+            <form class="example-form" autocomplete="off" >
+                <h6>{{fieldLabel}}</h6>
+                <div class="row" *ngIf="divFields">
 
+                  <div class="col-md-10">
+                      <div class="form-group" *ngIf="previewInpField">
+                        <div class="row">
+                           <div class="col-md-2">
+                                <label class="control-label">M</label>
+                                <input type="text"  class="form-control" />
+                                  <!-- <mat-form-field class="example-full-width">
+                                      <input type="{{previewInputType}}" matInput placeholder={{fieldLabel}} >
+                                    </mat-form-field> -->
+                              </div>
+                            <div class="col-md-2">
+                                <label class="control-label">M</label>
+                                <input type="text"  class="form-control" />
+                                  <!-- <mat-form-field class="example-full-width">
+                                      <input type="{{previewInputType}}" matInput placeholder={{fieldLabel}} >
+                                    </mat-form-field> -->
+                              </div>
+                              <div class="col-md-2">
+                                  <label class="control-label">M</label>
+                                  <input type="text"  class="form-control" />
+                                    <!-- <mat-form-field class="example-full-width">
+                                        <input type="{{previewInputType}}" matInput placeholder={{fieldLabel}} >
+                                      </mat-form-field> -->
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label">M</label>
+                                    <input type="text"  class="form-control" />
+                                      <!-- <mat-form-field class="example-full-width">
+                                          <input type="{{previewInputType}}" matInput placeholder={{fieldLabel}} >
+                                        </mat-form-field> -->
+                                  </div>
+                                  <div class="col-md-2">
+                                      <label class="control-label">M</label>
+                                      <input type="text"  class="form-control" />
+                                        <!-- <mat-form-field class="example-full-width">
+                                            <input type="{{previewInputType}}" matInput placeholder={{fieldLabel}} >
+                                          </mat-form-field> -->
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="control-label">M</label>
+                                        <input type="text"  class="form-control" />
+                                          <!-- <mat-form-field class="example-full-width">
+                                              <input type="{{previewInputType}}" matInput placeholder={{fieldLabel}} >
+                                            </mat-form-field> -->
+                                      </div>
+                        </div>
+
+                      </div>
+                      <div class="form-group" *ngIf="previewTextField">
+                          <mat-form-field class="example-full-width">
+                              <textarea matInput placeholder={{fieldLabel}}></textarea>
+                            </mat-form-field>
+                      </div>
                   </div>
-                  <!-- <div class="form-group">
-                      <mat-form-field class="example-full-width">
-                          <textarea matInput placeholder="Leave a comment"></textarea>
-                        </mat-form-field>
-                  </div> -->
+
             </div>
-
-
-
+            <div class="form-group" *ngIf="dropdowndiv">
+              <div class="col-md-6">
+                  <select class="form-control">
+                      <option value="">Choose Currency</option>
+                      <option *ngFor="let data of currencyData" value="{{data.name}}">{{data.symbol}} - {{data.name}}</option>
+                    </select>
+              </div>
+            </div>
+            <div class="form-group" *ngIf="textareafield">
+                <div class="col-md-6">
+                    <textarea class="form-control" rows="5" ></textarea>
+                </div>
+              </div>
             </form>
 
         </mat-card-content>
