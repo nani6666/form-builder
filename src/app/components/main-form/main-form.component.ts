@@ -14,10 +14,13 @@ export class MainFormComponent implements OnInit {
   fieldLabel:any;
   builderForm:FormGroup;
   totalField:any;
+  maxcharfield:any;
   childData:any;
   genderMale:boolean;
   genderFemale:boolean;
   genderOthers:boolean;
+  maxcharVal:any;
+  maxCharValErrors:boolean;
   genderCapture:any;
   divFields:boolean =false;
   dropdowndiv:boolean = false;
@@ -31,6 +34,11 @@ export class MainFormComponent implements OnInit {
   multiLineField:boolean = false;
   textareafield:boolean = false;
   enabledmulticheck:boolean = true;
+  maleInput:boolean = true;
+  femaleInput:boolean = false;
+  othersInput:boolean = false;
+  cmcfinpt:boolean = false;
+  totalinput:boolean = false;
 
 
   constructor(private _fb: FormBuilder,private serviceCall:ApiCallsService) { }
@@ -55,21 +63,26 @@ export class MainFormComponent implements OnInit {
       this.inputbtn = true;
       this.previewInpField = true;
       this.previewTextField = false;
-      this.builderForm.reset();
+
     }else{
       this.inputbtn = true;
       this.previewInpField = false;
       this.previewTextField = true;
-      this.builderForm.reset();
+      this.builderForm[0].reset();
     }
   }
 
-  onlabel(labelvalue: string ,elem2 ) {
+  onlabel(labelvalue: any ,elem2 ) {
     if(elem2 == 'label'){
-     // alert('label');
       this.fieldLabel = labelvalue ;
-    }else{
-     // alert('chars');
+    }else if(elem2 == 'chars'){
+      console.log(labelvalue);
+    if(labelvalue < 1 || labelvalue > 10){
+      this.maxCharValErrors = true
+    }else {
+      this.maxCharValErrors = false;
+    }
+
     }
 
   }
@@ -105,14 +118,24 @@ export class MainFormComponent implements OnInit {
       }
 
     }else if(val == "child"){
-
+     if(this.childData == "Yes"){
+       this.cmcfinpt = true ;
+     }else if(this.childData == "No"){
+      this.cmcfinpt = false ;
+     }
     }else if(val == "total"){
-      // alert(this.totalField);
+      if(this.totalField == "Yes"){
+        this.totalinput = true ;
+      }else if(this.totalField == "No"){
+       this.totalinput = false ;
+      }
     }else if(val == "genderCapt"){
       if(this.genderCapture == "Yes"){
         this.showGenderChecks = true;
+        this.genderMale = true;
       }else{
         this.showGenderChecks = false;
+        this.genderMale = false;
       }
 
     }
@@ -129,17 +152,29 @@ export class MainFormComponent implements OnInit {
 
   checkboxesChange(val){
   if(val == "multilinefield"){
-    this.checkvalues();
+    this.checkvaluesTextfield();
   }else if(val == "Male"){
-    console.log("Male");
+    if( this.genderMale == true){
+      this.maleInput = true;
+    }else{
+      this.maleInput = false;
+    }
   } else if(val == "female"){
-    console.log("female");
+    if( this.genderFemale == true){
+      this.femaleInput = true;
+    }else{
+      this.femaleInput = false;
+    }
   }else if(val == "others"){
-    console.log("others");
+    if( this.genderOthers == true){
+      this.othersInput = true;
+    }else{
+      this.othersInput = false;
+    }
    }
   }
 
-  checkvalues(){
+  checkvaluesTextfield(){
     if(this.multiLineField == true){
       this.dropdowndiv = false;
       this.divFields = false;

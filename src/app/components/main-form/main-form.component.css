@@ -2,4 +2,8 @@ mat-card{
   border-top: 10px solid #2DB0ED;
 }
 
+a{
+  cursor: pointer;
+}
+
 

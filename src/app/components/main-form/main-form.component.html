@@ -18,9 +18,9 @@
 <div class="col-md-4">
     <mat-card><mat-card-title>Form Builder</mat-card-title>
       <mat-card-content>
-          <form class="example-form" autocomplete="off" [formGroup]="builderForm">
+          <form class="example-form" autocomplete="off" [formGroup]="builderForm" id="builderForm">
                 <div *ngIf="inputbtn">
-                  <a style="cursor:pointer;float:right;" class="btn bg-danger text-light"><i style="cursor:pointer;" class="fa fa-trash"></i></a>
+                  <button  type="reset" matTooltip="Delete Field" class="btn bg-danger text-light"><i style="cursor:pointer;" class="fa fa-trash"></i></button>
                 <div class="form-group" >
                     <div class="col-md-6">
                         <mat-form-field class="example-full-width">
@@ -59,13 +59,22 @@
                                   <input type="number" matInput placeholder="Max No Of Characters" (input)="onlabel($event.target.value,'chars')" >
                                 </mat-form-field>
                           </div>
+                          <div *ngIf="maxCharValErrors">
+                            <span class="text-danger"><strong><i>Your Input should be between 1 to 10 only.</i></strong></span>
+                          </div>
                       </div>
                       <div class="form-group" >
                           <label class="control-label">Enable Gender Data Caputre ?</label>
                           <div class="col-md-6">
                               <mat-radio-group [(ngModel)]="genderCapture" [ngModelOptions]="{standalone: true}" (change)="radiovalues('genderCapt')">
-                                  <mat-radio-button value="Yes">Yes</mat-radio-button>
-                                  <mat-radio-button value="No">No</mat-radio-button>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                      <mat-radio-button value="Yes">Yes</mat-radio-button>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <mat-radio-button value="No">No</mat-radio-button>
+                                  </div>
+                                </div>
                                 </mat-radio-group>
                           </div>
                       </div>
@@ -87,8 +96,14 @@
                               <label class="control-label">Add Child Data</label>
                               <div class="col-md-6">
                                   <mat-radio-group [(ngModel)]="childData" [ngModelOptions]="{standalone: true}" (change)="radiovalues('child')">
-                                      <mat-radio-button value="Yes">Yes</mat-radio-button>
-                                      <mat-radio-button value="No">No</mat-radio-button>
+                                      <div class="row">
+                                          <div class="col-md-6">
+                                              <mat-radio-button value="Yes">Yes</mat-radio-button>
+                                          </div>
+                                          <div class="col-md-6">
+                                              <mat-radio-button value="No">No</mat-radio-button>
+                                          </div>
+                                        </div>
                                     </mat-radio-group>
                               </div>
                         </div>
@@ -96,8 +111,14 @@
                           <label class="control-label">Include Total</label>
                           <div class="col-md-6">
                               <mat-radio-group [(ngModel)]="totalField" [ngModelOptions]="{standalone: true}" (change)="radiovalues('total')">
-                                  <mat-radio-button value="Yes">Yes</mat-radio-button>
-                                  <mat-radio-button value="No">No</mat-radio-button>
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                          <mat-radio-button value="Yes">Yes</mat-radio-button>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <mat-radio-button value="No">No</mat-radio-button>
+                                      </div>
+                                    </div>
                                 </mat-radio-group>
                           </div>
                         </div>
@@ -114,52 +135,33 @@
             <form class="example-form" autocomplete="off" >
                 <h6>{{fieldLabel}}</h6>
                 <div class="row" *ngIf="divFields">
-
                   <div class="col-md-10">
                       <div class="form-group" *ngIf="previewInpField">
                         <div class="row">
-                           <div class="col-md-2">
+                            <div class="col-md-2" *ngIf="maleInput">
                                 <label class="control-label">M</label>
-                                <input type="text"  class="form-control" />
-                                  <!-- <mat-form-field class="example-full-width">
-                                      <input type="{{previewInputType}}" matInput placeholder={{fieldLabel}} >
-                                    </mat-form-field> -->
+                                <input type="{{previewInputType}}"  class="form-control" />
                               </div>
-                            <div class="col-md-2">
-                                <label class="control-label">M</label>
-                                <input type="text"  class="form-control" />
-                                  <!-- <mat-form-field class="example-full-width">
-                                      <input type="{{previewInputType}}" matInput placeholder={{fieldLabel}} >
-                                    </mat-form-field> -->
-                              </div>
-                              <div class="col-md-2">
-                                  <label class="control-label">M</label>
-                                  <input type="text"  class="form-control" />
-                                    <!-- <mat-form-field class="example-full-width">
-                                        <input type="{{previewInputType}}" matInput placeholder={{fieldLabel}} >
-                                      </mat-form-field> -->
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="control-label">M</label>
-                                    <input type="text"  class="form-control" />
-                                      <!-- <mat-form-field class="example-full-width">
-                                          <input type="{{previewInputType}}" matInput placeholder={{fieldLabel}} >
-                                        </mat-form-field> -->
+                             <div class="col-md-2" *ngIf="femaleInput">
+                                <label class="control-label">F</label>
+                                <input type="{{previewInputType}}"  class="form-control" />
+                               </div>
+                               <div class="col-md-2" *ngIf="othersInput">
+                                  <label class="control-label">O</label>
+                                  <input type="{{previewInputType}}"  class="form-control" />
+                                 </div>
+                                 <div class="col-md-2" *ngIf="cmcfinpt">
+                                    <label class="control-label">CM</label>
+                                    <input type="{{previewInputType}}"  class="form-control" />
                                   </div>
-                                  <div class="col-md-2">
-                                      <label class="control-label">M</label>
-                                      <input type="text"  class="form-control" />
-                                        <!-- <mat-form-field class="example-full-width">
-                                            <input type="{{previewInputType}}" matInput placeholder={{fieldLabel}} >
-                                          </mat-form-field> -->
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="control-label">M</label>
-                                        <input type="text"  class="form-control" />
-                                          <!-- <mat-form-field class="example-full-width">
-                                              <input type="{{previewInputType}}" matInput placeholder={{fieldLabel}} >
-                                            </mat-form-field> -->
-                                      </div>
+                                  <div class="col-md-2" *ngIf="cmcfinpt">
+                                      <label class="control-label">CF</label>
+                                      <input type="{{previewInputType}}"  class="form-control" />
+                                  </div>
+                                  <div class="col-md-2" *ngIf="totalinput">
+                                        <label class="control-label">T</label>
+                                        <input type="{{previewInputType}}"  class="form-control" />
+                                  </div>
                         </div>
 
                       </div>
