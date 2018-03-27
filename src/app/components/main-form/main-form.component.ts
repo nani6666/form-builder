@@ -77,11 +77,13 @@ export class MainFormComponent implements OnInit {
       this.fieldLabel = labelvalue ;
     }else if(elem2 == 'chars'){
       console.log(labelvalue);
-    if(labelvalue < 1 || labelvalue > 10){
-      this.maxCharValErrors = true
-    }else {
+     if(labelvalue == ""){
       this.maxCharValErrors = false;
-    }
+      }else if(labelvalue < 1 || labelvalue > 10){
+      this.maxCharValErrors = true
+      }else{
+      this.maxCharValErrors = false;
+     }
 
     }
 
