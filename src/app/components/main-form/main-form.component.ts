@@ -174,6 +174,10 @@ export class MainFormComponent implements OnInit {
    }
   }
 
+
+  formsreset(){
+    this.builderForm.get[0].reset();
+  }
   checkvaluesTextfield(){
     if(this.multiLineField == true){
       this.dropdowndiv = false;
