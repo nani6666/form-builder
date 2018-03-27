@@ -14,6 +14,12 @@ a{
 .typeInput{
   padding-left:50px;
 }
+.typeInput2{
+  padding-left: 26px;
+}
+.typeInput3{
+  padding-left: 36px;
+}
 .mat-card-title {
   font-size: 20px;
   font-weight: 400;

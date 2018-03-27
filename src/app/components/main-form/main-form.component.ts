@@ -13,6 +13,7 @@ export class MainFormComponent implements OnInit {
   inputbtn:any;
   fieldLabel:any;
   builderForm:FormGroup;
+  public invoiceForm: FormGroup;
   totalField:any;
   maxcharfield:any;
   childData:any;
@@ -49,6 +50,9 @@ export class MainFormComponent implements OnInit {
     this.builderForm = this._fb.group({
       builderInput: this._fb.array([''])
     });
+    this.invoiceForm = this._fb.group({
+      itemRows: this._fb.array([this.initItemRows()])
+    });
     // console.log(this.serviceCall.getAllCurrencies());
 
     if(this.inputType === undefined){
@@ -57,6 +61,28 @@ export class MainFormComponent implements OnInit {
       this.divFields = true;
     }
   }
+
+  initItemRows() {
+    return this._fb.group({
+        maleinputval: [''],
+        femaleinputval:  [''],
+        othersinputval: [''],
+        cminputval: [''],
+        cfinputval: [''],
+        totalinputval: [''],
+
+    });
+}
+
+addNewRow() {
+  // console.log(this._fb.array);
+   const control = <FormArray>this.invoiceForm.controls['itemRows'];
+   control.push(this.initItemRows());
+}
+deleteRow(index: number) {
+  const control = <FormArray>this.invoiceForm.controls['itemRows'];
+  control.removeAt(index);
+}
 
   elementClick(val){
     if(val == "input"){
@@ -158,8 +184,11 @@ export class MainFormComponent implements OnInit {
   }else if(val == "Male"){
     if( this.genderMale == true){
       this.maleInput = true;
+      document.getElementById("pointerAdd").style.pointerEvents = "auto";
     }else{
       this.maleInput = false;
+      document.getElementById("pointerAdd").style.pointerEvents = "none";
+
     }
   } else if(val == "female"){
     if( this.genderFemale == true){

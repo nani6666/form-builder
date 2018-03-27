@@ -37,18 +37,22 @@
 
                             </div>
                             <div>
-                                <mat-checkbox class="checkbox" [(ngModel)]="multiLineField" [disabled]="enabledmulticheck" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('multilinefield')">Enable Multi Line Field</mat-checkbox>
+                                <mat-checkbox style="padding-left:36px;" class="checkbox " [(ngModel)]="multiLineField" [disabled]="enabledmulticheck" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('multilinefield')">Enable Multi Line Field</mat-checkbox>
                             </div>
                   </div>
 
                   <div  *ngIf="divFields">
                       <div class="" >
-                          <div class="col-md-3">
-                            <label class="control-label">Max No Of Characters</label>
-                              <mat-form-field class="example-full-width">
-                                  <input type="number" matInput  (input)="onlabel($event.target.value,'chars')" >
-                                </mat-form-field>
-                          </div>
+                                <div class="row">
+                                  <div class="col-md-8">
+                                      <label class="control-label">Max No Of Characters</label>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <mat-form-field class="example-full-width">
+                                    <input type="number" matInput  (input)="onlabel($event.target.value,'chars')" >
+                                  </mat-form-field>
+                                  </div>
+                                </div>
                           <div *ngIf="maxCharValErrors">
                             <span class="text-danger"><strong><i>Your Input should be between 1 to 10 only.</i></strong></span>
                           </div>
@@ -59,7 +63,7 @@
                               <mat-radio-group [(ngModel)]="genderCapture" [ngModelOptions]="{standalone: true}" (change)="radiovalues('genderCapt')">
                                 <div class="row">
                                   <div class="col-md-6">
-                                      <mat-radio-button class="typeInput" value="Yes">Yes</mat-radio-button>
+                                      <mat-radio-button class="typeInput2" value="Yes">Yes</mat-radio-button>
                                   </div>
                                   <div class="col-md-6">
                                       <mat-radio-button class="typeInput" value="No">No</mat-radio-button>
@@ -71,7 +75,7 @@
                         <div class="" *ngIf="showGenderChecks">
                             <label class="control-label">Gender</label>
                             <div>
-                                  <mat-checkbox class="typeInput" [(ngModel)]="genderMale" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('Male')">Male</mat-checkbox>
+                                  <mat-checkbox class="typeInput3" [(ngModel)]="genderMale" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('Male')">Male</mat-checkbox>
                                   <mat-checkbox  class="typeInput" [(ngModel)]="genderFemale" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('female')">Female</mat-checkbox>
                                   <mat-checkbox  class="typeInput" [(ngModel)]="genderOthers" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('others')">Others</mat-checkbox>
                             </div>
@@ -82,7 +86,7 @@
                                   <mat-radio-group [(ngModel)]="childData" [ngModelOptions]="{standalone: true}" (change)="radiovalues('child')">
                                       <div class="row">
                                           <div class="col-md-6">
-                                              <mat-radio-button class="typeInput" value="Yes">Yes</mat-radio-button>
+                                              <mat-radio-button class="typeInput2" value="Yes">Yes</mat-radio-button>
                                           </div>
                                           <div class="col-md-6">
                                               <mat-radio-button class="typeInput" value="No">No</mat-radio-button>
@@ -97,7 +101,7 @@
                               <mat-radio-group [(ngModel)]="totalField" [ngModelOptions]="{standalone: true}" (change)="radiovalues('total')">
                                   <div class="row">
                                       <div class="col-md-6">
-                                          <mat-radio-button class="typeInput" value="Yes">Yes</mat-radio-button>
+                                          <mat-radio-button class="typeInput2" value="Yes">Yes</mat-radio-button>
                                       </div>
                                       <div class="col-md-6">
                                           <mat-radio-button class="typeInput" value="No">No</mat-radio-button>
@@ -116,38 +120,47 @@
   <div class="col-md-6">
       <mat-card><mat-card-title>Preview</mat-card-title>
         <mat-card-content>
-            <form class="example-form" autocomplete="off" >
-                <h6>{{fieldLabel}}</h6>
+            <form class="example-form" autocomplete="off" [formGroup]="invoiceForm">
                 <div class="row" *ngIf="divFields">
-                  <div class="col-md-10">
+                  <div class="col-md-12">
                       <div class="" *ngIf="previewInpField">
-                        <div class="row">
+                          <a  style="float:right;" id="pointerAdd" class="text-primary" (click)="addNewRow()" ><i class="fa fa-plus"></i></a>
+                        <div  formArrayName="itemRows">
+
+                        <div class="row" *ngFor="let checks of invoiceForm.controls.itemRows.controls; let i=index"  [formGroupName]="i">
+                            <h6>{{fieldLabel}} {{ i + 1 }}</h6>
+                            <div class="input-group">
                             <div class="col-md-2" *ngIf="maleInput">
                                 <label class="control-label">M</label>
-                                <input type="{{previewInputType}}"  class="form-control inphight " />
+                                <input type="{{previewInputType}}"  formControlName="maleinputval" class="form-control inphight " />
                               </div>
                              <div class="col-md-2" *ngIf="femaleInput">
                                 <label class="control-label">F</label>
-                                <input type="{{previewInputType}}"  class="form-control inphight" />
+                                <input type="{{previewInputType}}" formControlName="femaleinputval"  class="form-control inphight" />
                                </div>
                                <div class="col-md-2" *ngIf="othersInput">
                                   <label class="control-label">O</label>
-                                  <input type="{{previewInputType}}"  class="form-control inphight" />
+                                  <input type="{{previewInputType}}" formControlName="othersinputval" class="form-control inphight" />
                                  </div>
                                  <div class="col-md-2" *ngIf="cmcfinpt">
                                     <label class="control-label">CM</label>
-                                    <input type="{{previewInputType}}"  class="form-control inphight" />
+                                    <input type="{{previewInputType}}" formControlName="cminputval" class="form-control inphight" />
                                   </div>
                                   <div class="col-md-2" *ngIf="cmcfinpt">
                                       <label class="control-label">CF</label>
-                                      <input type="{{previewInputType}}"  class="form-control inphight" />
+                                      <input type="{{previewInputType}}" formControlName="cfinputval" class="form-control inphight" />
                                   </div>
                                   <div class="col-md-2" *ngIf="totalinput">
                                         <label class="control-label">T</label>
-                                        <input type="{{previewInputType}}"  class="form-control inphight" />
+                                        <input type="{{previewInputType}}" formControlName="totalinputval" class="form-control inphight" />
+                                  </div>
+                                  <span  class="input-group-btn">
+                                          <a *ngIf="invoiceForm.controls.itemRows.controls.length > 1" (click)="deleteRow(i)" class="text-danger"><i class="fa fa-trash"></i></a>
+                                        </span>
+
                                   </div>
                         </div>
-
+                       </div>
                       </div>
                       <div class="" *ngIf="previewTextField">
                           <mat-form-field class="example-full-width">
