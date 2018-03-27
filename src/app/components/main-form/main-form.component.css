@@ -11,6 +11,9 @@ a{
   cursor: pointer;
 }
 
+.labelCenter{
+padding-left: 25px
+}
 .typeInput{
   padding-left:50px;
 }
