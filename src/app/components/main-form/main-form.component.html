@@ -44,13 +44,12 @@
                   <div  *ngIf="divFields">
                       <div class="" >
                                 <div class="row">
-                                  <div class="col-md-8">
+                                  <div class="col-md-5">
                                       <label class="control-label">Max No Of Characters</label>
+
                                   </div>
-                                  <div class="col-md-3">
-                                      <mat-form-field class="example-full-width">
-                                    <input type="number" matInput  (input)="onlabel($event.target.value,'chars')" >
-                                  </mat-form-field>
+                                  <div class="col-md-4">
+                                      <input type="number"  style="height:30px;" class="form-control " (input)="onlabel($event.target.value,'chars')" />
                                   </div>
                                 </div>
                           <div *ngIf="maxCharValErrors">
@@ -118,47 +117,58 @@
       </mat-card>
   </div>
   <div class="col-md-6">
-      <mat-card><mat-card-title>Preview</mat-card-title>
+      <mat-card><mat-card-title>Preview
+
+          <a  *ngIf="divFields" style="float:right;font-size: 15px;" id="pointerAdd" class="text-primary" (click)="addNewRow()" ><i class="fa fa-plus"></i><span>ADD ROW</span></a>
+      </mat-card-title>
         <mat-card-content>
             <form class="example-form" autocomplete="off" [formGroup]="invoiceForm">
                 <div class="row" *ngIf="divFields">
+
                   <div class="col-md-12">
                       <div class="" *ngIf="previewInpField">
-                          <a  style="float:right;" id="pointerAdd" class="text-primary" (click)="addNewRow()" ><i class="fa fa-plus"></i><span>ADD ROW</span></a>
                         <div  formArrayName="itemRows">
-
                         <div class="row" *ngFor="let checks of invoiceForm.controls.itemRows.controls; let i=index"  [formGroupName]="i">
-                            <h6>{{fieldLabel}} {{ i + 1 }}</h6>
-                            <div class="input-group">
-                            <div class="col-md-2" *ngIf="maleInput">
-                                <label class="labelCenter control-label">M</label>
-                                <input type="{{previewInputType}}"  formControlName="maleinputval" class="form-control inphight " />
-                              </div>
-                             <div class="col-md-2" *ngIf="femaleInput">
-                                <label class="labelCenter control-label">F</label>
-                                <input type="{{previewInputType}}" formControlName="femaleinputval"  class="form-control inphight" />
-                               </div>
-                               <div class="col-md-2" *ngIf="othersInput">
-                                  <label class="labelCenter control-label">O</label>
-                                  <input type="{{previewInputType}}" formControlName="othersinputval" class="form-control inphight" />
-                                 </div>
-                                 <div class="col-md-2" *ngIf="cmcfinpt">
-                                    <label class="labelCenter control-label">CM</label>
-                                    <input type="{{previewInputType}}" formControlName="cminputval" class="form-control inphight" />
+                            <!-- <span>{{fieldLabel}}  {{ i + 1 }}</span> -->
+                            <div class="card">
+                                <div class="card-body">
+                                  <div class="input-group">
+                                      <span style="text-transform: capitalize;">{{fieldLabel}}</span>
+                                      <span  class="input-group-btn">
+                                          <a style="font-size:20px;padding-left:450px;" *ngIf="invoiceForm.controls.itemRows.controls.length > 1" (click)="deleteRow(i)" class="text-danger"><i class="fa fa-trash"></i></a>
+                                         </span>
                                   </div>
-                                  <div class="col-md-2" *ngIf="cmcfinpt">
-                                      <label class="labelCenter control-label">CF</label>
-                                      <input type="{{previewInputType}}" formControlName="cfinputval" class="form-control inphight" />
-                                  </div>
-                                  <div class="col-md-2" *ngIf="totalinput">
-                                        <label class="labelCenter control-label">T</label>
-                                        <input type="{{previewInputType}}" formControlName="totalinputval" class="form-control inphight" />
-                                  </div>
-                                  <span  class="input-group-btn">
-                                          <a *ngIf="invoiceForm.controls.itemRows.controls.length > 1" (click)="deleteRow(i)" class="text-danger"><i class="fa fa-trash"></i></a>
-                                        </span>
+                                    <div class="row">
+                                    <div class="col-sm-2" *ngIf="maleInput">
+                                        <label class="labelCenter control-label">M</label>
+                                        <input type="{{previewInputType}}"  formControlName="maleinputval" class="form-control SmallInput " />
+                                      </div>
+                                     <div class="col-sm-2" *ngIf="femaleInput">
+                                        <label class="labelCenter control-label">F</label>
+                                        <input type="{{previewInputType}}" formControlName="femaleinputval"  class="form-control SmallInput" />
+                                       </div>
+                                       <div class="col-md-2" *ngIf="othersInput">
+                                          <label class="labelCenter control-label">O</label>
+                                          <input type="{{previewInputType}}" formControlName="othersinputval" class="form-control SmallInput" />
+                                         </div>
+                                         <div class="col-md-2" *ngIf="cmcfinpt">
+                                            <label class="labelCenter control-label">CM</label>
+                                            <input type="{{previewInputType}}" formControlName="cminputval" class="form-control SmallInput" />
+                                          </div>
+                                          <div class="col-md-2" *ngIf="cmcfinpt">
+                                              <label class=" labelCenter control-label">CF</label>
+                                              <input type="{{previewInputType}}" formControlName="cfinputval" class="form-control SmallInput" />
+                                          </div>
+                                          <div class="col-md-2" *ngIf="totalinput">
+                                                <label class="labelCenter control-label">T</label>
+                                                <input type="{{previewInputType}}" formControlName="totalinputval" class="form-control SmallInput" />
+                                          </div>
 
-                                  </div>
+                                          <!--  -->
+                                      </div>
+                                </div>
+                              </div>
+
                         </div>
                        </div>
                       </div>
