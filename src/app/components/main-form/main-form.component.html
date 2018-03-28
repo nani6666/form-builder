@@ -46,14 +46,15 @@
                                 <div class="row">
                                   <div class="col-md-5">
                                       <label class="control-label">Max No Of Characters</label>
+                                      <input type="number"  class="form-control SmallInput" (input)="onlabel($event.target.value,'chars')" />
 
                                   </div>
                                   <div class="col-md-4">
-                                      <input type="number"  style="height:30px;" class="form-control " (input)="onlabel($event.target.value,'chars')" />
+
                                   </div>
                                 </div>
                           <div *ngIf="maxCharValErrors">
-                            <span class="text-danger"><strong><i>Your Input should be between 1 to 10 only.</i></strong></span>
+                            <span class="text-danger"><strong>Your Input should be between 1 to 10 only.</strong></span>
                           </div>
                       </div>
                       <div class="" >
@@ -132,23 +133,19 @@
                             <!-- <span>{{fieldLabel}}  {{ i + 1 }}</span> -->
                             <div class="card">
                                 <div class="card-body">
-                                  <div class="input-group">
                                       <span style="text-transform: capitalize;">{{fieldLabel}}</span>
-                                      <span  class="input-group-btn">
-                                          <a style="font-size:20px;padding-left:450px;" *ngIf="invoiceForm.controls.itemRows.controls.length > 1" (click)="deleteRow(i)" class="text-danger"><i class="fa fa-trash"></i></a>
-                                         </span>
-                                  </div>
+                                          <a  *ngIf="invoiceForm.controls.itemRows.controls.length > 1"  style="float:right;font-size: 15px;" (click)="deleteRow(i)" class="text-danger"><i class="fa fa-trash"></i><span> Delete</span></a>
                                     <div class="row">
                                     <div class="col-sm-2" *ngIf="maleInput">
-                                        <label class="labelCenter control-label">M</label>
+                                        <label class="labelCenter control-label">AM</label>
                                         <input type="{{previewInputType}}"  formControlName="maleinputval" class="form-control SmallInput " />
                                       </div>
                                      <div class="col-sm-2" *ngIf="femaleInput">
-                                        <label class="labelCenter control-label">F</label>
+                                        <label class="labelCenter control-label">AF</label>
                                         <input type="{{previewInputType}}" formControlName="femaleinputval"  class="form-control SmallInput" />
                                        </div>
                                        <div class="col-md-2" *ngIf="othersInput">
-                                          <label class="labelCenter control-label">O</label>
+                                          <label class="labelCenter control-label">Oth</label>
                                           <input type="{{previewInputType}}" formControlName="othersinputval" class="form-control SmallInput" />
                                          </div>
                                          <div class="col-md-2" *ngIf="cmcfinpt">
@@ -160,7 +157,7 @@
                                               <input type="{{previewInputType}}" formControlName="cfinputval" class="form-control SmallInput" />
                                           </div>
                                           <div class="col-md-2" *ngIf="totalinput">
-                                                <label class="labelCenter control-label">T</label>
+                                                <label class="labelCenter control-label">Total</label>
                                                 <input type="{{previewInputType}}" formControlName="totalinputval" class="form-control SmallInput" />
                                           </div>
 
@@ -182,6 +179,7 @@
             </div>
             <div class="" *ngIf="dropdowndiv">
               <div class="col-md-6">
+                  <span style="text-transform: capitalize;">{{fieldLabel}}</span>
                   <select class="form-control">
                       <option value="">Choose Currency</option>
                       <option *ngFor="let data of currencyData" value="{{data.name}}">{{data.symbol}} - {{data.name}}</option>
@@ -190,6 +188,7 @@
             </div>
             <div class="" *ngIf="textareafield">
                 <div class="col-md-6">
+                    <span style="text-transform: capitalize;">{{fieldLabel}}</span>
                     <textarea class="form-control" rows="5" ></textarea>
                 </div>
               </div>
