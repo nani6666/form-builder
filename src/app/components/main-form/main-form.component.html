@@ -57,10 +57,11 @@
                             <span class="text-danger"><strong>Your Input should be between 1 to 10 only.</strong></span>
                           </div>
                       </div>
-                      <div class="" >
-                          <label class="control-label">Enable Gender Data Caputre ?</label>
+                      <div class="form-group">
+                      <div class="row" >
+                          <!-- <label class="control-label">Enable Gender Data Caputre ?</label> -->
                           <div class="col-md-6">
-                              <mat-radio-group [(ngModel)]="genderCapture" [ngModelOptions]="{standalone: true}" (change)="radiovalues('genderCapt')">
+                              <!-- <mat-radio-group [(ngModel)]="genderCapture" [ngModelOptions]="{standalone: true}" (change)="radiovalues('genderCapt')">
                                 <div class="row">
                                   <div class="col-md-6">
                                       <mat-radio-button class="typeInput2" value="Yes">Yes</mat-radio-button>
@@ -69,18 +70,44 @@
                                       <mat-radio-button class="typeInput" value="No">No</mat-radio-button>
                                   </div>
                                 </div>
-                                </mat-radio-group>
+                                </mat-radio-group> -->
+                                <mat-checkbox  class="checkbox " [(ngModel)]="genderCapture" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('genderdata')">Enable Gender Data </mat-checkbox>
+                          </div>
+                          <div class="col-md-6">
+                              <mat-checkbox  class="checkbox " [(ngModel)]="genderOhercapure"  [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('othersData')">Enable Others Data</mat-checkbox>
                           </div>
                       </div>
-                        <div class="" *ngIf="showGenderChecks">
+                    </div>
+                    <div class="form-group">
+                        <div class="row" >
+                            <!-- <label class="control-label">Enable Gender Data Caputre ?</label> -->
+                            <div class="col-md-6">
+                                <!-- <mat-radio-group [(ngModel)]="genderCapture" [ngModelOptions]="{standalone: true}" (change)="radiovalues('genderCapt')">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-radio-button class="typeInput2" value="Yes">Yes</mat-radio-button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-radio-button class="typeInput" value="No">No</mat-radio-button>
+                                    </div>
+                                  </div>
+                                  </mat-radio-group> -->
+                                  <mat-checkbox  class="checkbox " [(ngModel)]="childData" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('childdata')">Enable Child Data </mat-checkbox>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-checkbox  class="checkbox " [(ngModel)]="totalField"  [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('totalData')">Enable Total field</mat-checkbox>
+                            </div>
+                        </div>
+                      </div>
+                        <!-- <div class="" *ngIf="showGenderChecks">
                             <label class="control-label">Gender</label>
                             <div>
                                   <mat-checkbox class="typeInput3" [(ngModel)]="genderMale" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('Male')">Male</mat-checkbox>
                                   <mat-checkbox  class="typeInput" [(ngModel)]="genderFemale" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('female')">Female</mat-checkbox>
                                   <mat-checkbox  class="typeInput" [(ngModel)]="genderOthers" [ngModelOptions]="{standalone: true}" (change)="checkboxesChange('others')">Others</mat-checkbox>
                             </div>
-                        </div>
-                        <div class="" >
+                        </div> -->
+                        <!-- <div class="" >
                               <label class="control-label">Add Child Data</label>
                               <div class="col-md-6">
                                   <mat-radio-group [(ngModel)]="childData" [ngModelOptions]="{standalone: true}" (change)="radiovalues('child')">
@@ -94,8 +121,8 @@
                                         </div>
                                     </mat-radio-group>
                               </div>
-                        </div>
-                        <div class="" >
+                        </div> -->
+                        <!-- <div class="" >
                           <label class="control-label">Include Total</label>
                           <div class="col-md-6">
                               <mat-radio-group [(ngModel)]="totalField" [ngModelOptions]="{standalone: true}" (change)="radiovalues('total')">
@@ -109,7 +136,7 @@
                                     </div>
                                 </mat-radio-group>
                           </div>
-                        </div>
+                        </div> -->
                     </div>
 
                </div>
@@ -120,7 +147,7 @@
   <div class="col-md-6">
       <mat-card><mat-card-title>Preview
 
-          <a  *ngIf="divFields" style="float:right;font-size: 15px;" id="pointerAdd" class="text-primary" (click)="addNewRow()" ><i class="fa fa-plus"></i><span>ADD ROW</span></a>
+          <a  *ngIf="inputbtn" style="float:right;font-size: 15px;" id="pointerAdd" class="text-primary" (click)="addNewRow()" ><i class="fa fa-plus"></i><span>ADD ROW</span></a>
       </mat-card-title>
         <mat-card-content>
             <form class="example-form" autocomplete="off" [formGroup]="invoiceForm">

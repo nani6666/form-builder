@@ -14,15 +14,16 @@ export class MainFormComponent implements OnInit {
   fieldLabel:any;
   builderForm:FormGroup;
   public invoiceForm: FormGroup;
-  totalField:any;
+  totalField:boolean =false;
   maxcharfield:any;
-  childData:any;
+  childData:boolean =false;
   genderMale:boolean;
   genderFemale:boolean;
   genderOthers:boolean;
   maxcharVal:any;
   maxCharValErrors:boolean;
-  genderCapture:any;
+  genderCapture:boolean =false;
+  genderOhercapure:boolean =false;
   divFields:boolean =false;
   dropdowndiv:boolean = false;
   currencyDropdown:boolean = false;
@@ -34,18 +35,20 @@ export class MainFormComponent implements OnInit {
   currencyData :any;
   multiLineField:boolean = false;
   textareafield:boolean = false;
-  enabledmulticheck:boolean = true;
-  maleInput:boolean = true;
+  enabledmulticheck:boolean = false;
+  maleInput:boolean = false;
   femaleInput:boolean = false;
   othersInput:boolean = false;
   cmcfinpt:boolean = false;
-  totalinput:boolean = false;
+  totalinput:boolean = true;
 
 
   constructor(private _fb: FormBuilder,private serviceCall:ApiCallsService) { }
 
   ngOnInit() {
     this.inputbtn = false;
+    this.divFields = true;
+    this.inputType = "text";
     this.currencyApi();
     this.builderForm = this._fb.group({
       builderInput: this._fb.array([''])
@@ -145,27 +148,6 @@ deleteRow(index: number) {
         this.textareafield = false;
       }
 
-    }else if(val == "child"){
-     if(this.childData == "Yes"){
-       this.cmcfinpt = true ;
-     }else if(this.childData == "No"){
-      this.cmcfinpt = false ;
-     }
-    }else if(val == "total"){
-      if(this.totalField == "Yes"){
-        this.totalinput = true ;
-      }else if(this.totalField == "No"){
-       this.totalinput = false ;
-      }
-    }else if(val == "genderCapt"){
-      if(this.genderCapture == "Yes"){
-        this.showGenderChecks = true;
-        this.genderMale = true;
-      }else{
-        this.showGenderChecks = false;
-        this.genderMale = false;
-      }
-
     }
 
   }
@@ -181,26 +163,33 @@ deleteRow(index: number) {
   checkboxesChange(val){
   if(val == "multilinefield"){
     this.checkvaluesTextfield();
-  }else if(val == "Male"){
-    if( this.genderMale == true){
+  }else if(val == "genderdata"){
+    if(this.genderCapture == true){
       this.maleInput = true;
+      this.femaleInput = true;
       document.getElementById("pointerAdd").style.pointerEvents = "auto";
     }else{
       this.maleInput = false;
-      document.getElementById("pointerAdd").style.pointerEvents = "none";
-
-    }
-  } else if(val == "female"){
-    if( this.genderFemale == true){
-      this.femaleInput = true;
-    }else{
       this.femaleInput = false;
+      document.getElementById("pointerAdd").style.pointerEvents = "none";
     }
-  }else if(val == "others"){
-    if( this.genderOthers == true){
+  } else if(val == "othersData"){
+    if( this.genderOhercapure == true){
       this.othersInput = true;
     }else{
       this.othersInput = false;
+    }
+  }else if(val == "childdata"){
+    if( this.childData == true){
+      this.cmcfinpt = true ;
+    }else{
+      this.cmcfinpt = false ;
+    }
+   }else if(val == "totalData"){
+    if( this.totalField == true){
+      this.totalinput = true ;
+    }else{
+      this.totalinput =  false ;
     }
    }
   }
